@@ -37,7 +37,7 @@
                 <a href="VotreTierlist.php">
                     <li>YOUR TIERLIST</li>
                 </a>
-                <a href="Film.php#footer">
+                <a href="AboutMe.html">
                     <li>ABOUT ME</li>
                 </a>
             </ul>
@@ -71,27 +71,27 @@
                     <section class="tierlist">
                         <div class="ligneTierlist">
                             <div contenteditable="true" class="categorie max" id="categorie1">Enter the text ...</div>
-                            <div class="emplacementFilm" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                            <div class="emplacementFilm" ondrop="drop(event)" ondragover="allowDrop(event)" id="emplacementFilm1" ></div>
                         </div>
                         <div class="ligneTierlist">
                             <div contenteditable="true" class="categorie top" id="categorie2">Enter the text ...</div>
-                            <div class="emplacementFilm" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                            <div class="emplacementFilm" ondrop="drop(event)" ondragover="allowDrop(event)" id="emplacementFilm2"></div>
                         </div>
                         <div class="ligneTierlist">  
                             <div contenteditable="true" class="categorie mid" id="categorie3">Enter the text ...</div>
-                            <div class="emplacementFilm" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                            <div class="emplacementFilm" ondrop="drop(event)" ondragover="allowDrop(event)" id="emplacementFilm3"></div>
                         </div>
                         <div class="ligneTierlist">
                             <div contenteditable="true" class="categorie bot" id="categorie4">Enter the text ...</div>
-                            <div class="emplacementFilm" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                            <div class="emplacementFilm" ondrop="drop(event)" ondragover="allowDrop(event)" id="emplacementFilm4"></div>
                         </div>
                         <div class="ligneTierlist">
                             <div contenteditable="true" class="categorie min" id="categorie5">Enter the text ...</div>
-                            <div class="emplacementFilm" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                            <div class="emplacementFilm" ondrop="drop(event)" ondragover="allowDrop(event)" id="emplacementFilm5"></div>
                         </div>
                     </section>
        
-                    <form method="post" action="VotreTierlist.php">
+                    <form method="post" action="VotreTierlist.php" onsubmit="removeImage()">
                         <button type="submit" class="moins" name="remove_all_films">
                             <img src="images/poubelleFermer" alt="poubelle" title="poubelle">
                         </button>
@@ -178,6 +178,20 @@ document.querySelectorAll('.categorie').forEach(function(categorie) {
     });
 });
 
+document.querySelectorAll('.imageFilm').forEach(function(imageFilm) {
+    if (localStorage.getItem('f'+ imageFilm.id)) {
+        var emplacementFilm = document.getElementById(localStorage.getItem('f'+ imageFilm.id));
+        emplacementFilm.appendChild(imageFilm);
+    }
+});
+
+function removeImage(){
+    for (var i = 0; i < localStorage.length; i++){
+        if (localStorage.key(i).substring(0,1) === "f") {
+            localStorage.removeItem(localStorage.key(i));
+        }
+}
+}
 /*---------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 /* ----------------------------------------------------------------------------Option pour le drag and drop -----------------------------------------------------------------*/
 /*---------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
@@ -220,7 +234,7 @@ function drop(ev) {
         return false;
     }
     ev.target.appendChild(document.getElementById(data));
-
+    localStorage.setItem("f"+ data , ev.target.id);
 
     adjustEmplacementFilmHeight();
 }

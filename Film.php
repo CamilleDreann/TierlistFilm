@@ -37,7 +37,7 @@
                 <a href="VotreTierlist.php">
                     <li>YOUR TIERLIST</li>
                 </a>
-                <a href="VotreTierlist.php#footer">
+                <a href="AboutMe.html">
                     <li>ABOUT ME</li>
                 </a>
             </ul>
